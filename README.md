@@ -56,6 +56,7 @@ sf-note-taker/
 │   ├── assets/           # Images, styling, fonts, etc.
 │   ├── components/       # Reusable UI components
 │   ├── store/            # Redux store setup
+│   ├── types/            # Global type definition
 │   ├── views/            # Page components
 │   ├── App.tsx           # Main App component
 │   ├── index.css         # Global styles
