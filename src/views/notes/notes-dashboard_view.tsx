@@ -27,6 +27,7 @@ import NoteCard from './components/note_card';
 import { NoteProps } from '@/types/note_types';
 
 const NotesView: React.FC = () => {
+  // Redux state and API hooks
   const sessionId = useAppSelector(selectSessionId);
   const { data: users = [], isLoading: isLoadingUsers, isError: isUsersError } = useGetUsersQuery();
   const {

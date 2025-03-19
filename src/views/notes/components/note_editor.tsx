@@ -18,14 +18,19 @@
  * - Optimized to avoid stale closures in event handlers
  */
 
+// React Core Imports
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+// Lucide-React Imports
+import { CheckCircle, AlertCircle, Plus } from 'lucide-react';
+// Local - Store Imports
 import { useGetUsersQuery, useUpdateNoteMutation, useCreateNoteMutation } from '@/store/apis';
-import { NoteProps } from '@/types/note_types';
-import { UserProps } from '@/types/user_types';
 import { useAppSelector } from '@/store/hooks';
 import { selectSessionId } from '@/store/slices/session_slice';
-import { CheckCircle, AlertCircle, Plus } from 'lucide-react';
+// Local - Utility Function Imports
 import { RenderMentionedText } from '@/utils/mention-helper';
+// Local - Type Imports
+import { NoteProps } from '@/types/note_types';
+import { UserProps } from '@/types/user_types';
 
 interface NoteEditorProps {
   selectedNote?: NoteProps | null;
@@ -178,7 +183,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
   };
 
   // Find mention suggestions based on query
-  const FindMentionSuggestions = (mentionQuery: string) => {
+  const findMentionSuggestions = (mentionQuery: string) => {
     if (!mentionQuery) {
       setMentionSuggestions([]);
       setCurrentMentionQuery(null);
@@ -216,7 +221,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
     // Check for @mentions
     const mentionMatches = value.match(/@(\w+)$/);
     if (mentionMatches) {
-      FindMentionSuggestions(mentionMatches[1]);
+      findMentionSuggestions(mentionMatches[1]);
     } else {
       setMentionSuggestions([]);
       setCurrentMentionQuery(null);

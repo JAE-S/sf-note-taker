@@ -21,7 +21,7 @@ A React-based note-taking application with user mention functionality.
 ## Features
 
 - **View Current Notes**: View all notes in your current session
-- **View Current Notes**: Reset session notes
+- **Reset Session**: Reset session notes
 - **Expand / Edit Notes**: Expand notes to edit content
 - **Auto-saving Notes**: Notes are automatically saved when you stop typing
 - **User Mentions**: Type `@` to mention users
@@ -35,32 +35,54 @@ A React-based note-taking application with user mention functionality.
 - **RTK Query**: API data fetching
 - **Tailwind CSS**: Styling
 - **Vite**: Build optimization
+- **Vitest**: Unit testing
+- **Testing Library**: Component testing utilities
 - **ESLint & Prettier**: Code quality and formatting
 - **simple-git-hooks**: Git hooks for pre-commit linting
 
 ## Project Architecture
 
-This project follows modern React architecture that combines elements of several patterns to create a maintainable structure for a single-page applications.
+This project follows modern React architecture that combines elements of several patterns to create a maintainable structure for a single-page application.
 
 - **Feature-Based Organization**: Components are structured around their functional purpose, with clear separation between reusable UI elements and page-specific views.
 - **Centralized State Management**: Redux Toolkit provides global state handling with RTK Query for efficient API interactions, creating a predictable data flow.
 - **Component Composition**: The application uses a hierarchy of component types (layouts, views, components) that compose together to create complete interfaces.
 - **View/Container Pattern**: Separation between container components and presentational components.
+- **Test-Driven Development**: Components are developed with accompanying unit tests that verify functionality.
 
 ## Project Structure
 
 ```
 sf-note-taker/
 ├── src/
-│   ├── Layouts/          # Layout components
 │   ├── assets/           # Images, styling, fonts, etc.
+│   │   └── images/       # SVG and image files
 │   ├── components/       # Reusable UI components
+│   │   ├── header/       # Header components
+│   │   └── loader/       # Loading indicator components
+│   ├── layouts/          # Layout components
 │   ├── store/            # Redux store setup
-│   ├── types/            # Global type definition
-│   ├── views/            # Page components
+│   │   ├── apis/         # API service definitions
+│   │   ├── slices/       # Redux state slices
+│   │   ├── hooks.ts      # Custom Redux hooks
+│   │   └── index.ts      # Store configuration
+│   ├── test/             # Test configuration and utilities
+│   │   ├── mocks/        # Mock data and mock functions
+│   │   ├── results/      # Test result reports
+│   │   └── setup.ts      # Test setup configuration
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Utility functions
+│   ├── views/            # Feature-specific components
+│   │   └── notes/        # Notes feature components
+│   │       ├── components/ # Note-specific components
+│   │       │   ├── __tests__/ # Component tests
+│   │       │   ├── note_card.tsx
+│   │       │   └── note_editor.tsx
+│   │       └── notes-dashboard_view.tsx
 │   ├── App.tsx           # Main App component
 │   ├── index.css         # Global styles
 │   └── main.tsx          # Application entry point
+├── vitest.config.js      # Vitest configuration
 └── ...config files
 ```
 
@@ -105,6 +127,15 @@ yarn build
 
 # Lint code
 yarn lint
+
+# Run tests
+yarn test
+
+# Run tests with watch mode
+yarn test:watch
+
+# Run tests with coverage
+yarn test:coverage
 ```
 
 ## Usage
@@ -120,7 +151,29 @@ yarn lint
 
 ## Testing
 
-// TODO: Note the testing strategies
+The application includes unit tests. Future Development should include end to end tests with tools like playwright.
+
+- **Component Testing**: Each component has corresponding unit tests in a `__tests__` directory.
+- **Mock Data**: Tests use centralized mock data and utility mocks for consistent testing.
+- **Testing Tools**:
+  - **Vitest**: Modern testing framework for Vite projects
+  - **Testing Library**: DOM testing utilities to test components like users would interact with them
+  - **Test IDs**: Components use data-testid attributes for reliable element selection in tests
+  - **Coverage Reports**: Test coverage reports are generated in `src/test/results/coverage`
+  - **Test Reports**: JSON and HTML test reports are available in `src/test/results`
+
+To run tests:
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests in watch mode
+yarn test:watch
+
+# Generate test coverage report
+yarn test:coverage
+```
 
 ## Future Development
 
