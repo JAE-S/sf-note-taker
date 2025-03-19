@@ -21,13 +21,15 @@
 // React Core Imports
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 // Lucide-React Imports
-import { CheckCircle, AlertCircle, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 // Local - Store Imports
 import { useGetUsersQuery, useUpdateNoteMutation, useCreateNoteMutation } from '@/store/apis';
 import { useAppSelector } from '@/store/hooks';
 import { selectSessionId } from '@/store/slices/session_slice';
 // Local - Utility Function Imports
 import { RenderMentionedText } from '@/utils/mention-helper';
+// Local - Component Imports
+import TextareaAutoSave, { SaveStatus } from '@/components/user-feedback/textarea-auto-save';
 // Local - Type Imports
 import { NoteProps } from '@/types/note_types';
 import { UserProps } from '@/types/user_types';
@@ -37,9 +39,6 @@ interface NoteEditorProps {
   onClose: () => void;
   isOpen: boolean;
 }
-
-// Save status type
-type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 
 const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }) => {
   // State management
@@ -269,32 +268,8 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
     saveNote(createNoteObject());
   };
 
-  // Render status indicator
-  const renderSaveStatus = () => {
-    switch (saveStatus) {
-      case 'saving':
-        return <span className="text-gray-500">Saving...</span>;
-      case 'saved':
-        return (
-          <div className="flex items-center text-green-600">
-            <CheckCircle className="mr-1 h-4 w-4" />
-            <span>Saved</span>
-          </div>
-        );
-      case 'error':
-        return (
-          <div className="flex items-center text-red-600">
-            <AlertCircle className="mr-1 h-4 w-4" />
-            <span>{errorMessage || 'Error saving'}</span>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col" data-testid="note-editor">
       <div className="mb-4">
         <label htmlFor="note-title" className="mb-2 block text-sm font-medium text-gray-700">
           Title <span className="text-red-500">*</span>
@@ -307,6 +282,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
           className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter note title"
           required
+          data-testid="note-title-input"
         />
       </div>
 
@@ -325,29 +301,37 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
           placeholder="Write your note here. Use @ to mention users."
           disabled={!title.trim()}
           required
+          data-testid="note-body-textarea"
         />
 
         {/* Save Status Indicator */}
-        <div className="absolute right-2 top-8 flex items-center space-x-1 text-sm">
-          {renderSaveStatus()}
+        <div
+          className="absolute right-2 top-8 flex items-center space-x-1 text-sm"
+          data-testid="save-status-container"
+        >
+          <TextareaAutoSave status={saveStatus} errorMessage={errorMessage} />
         </div>
 
         {/* Mention Preview */}
-        <div className="mt-2 text-sm text-gray-700">
+        <div className="mt-2 text-sm text-gray-700" data-testid="mention-preview-container">
           Preview:
-          <div className="mt-1 rounded border bg-gray-50 p-2">
+          <div className="mt-1 rounded border bg-gray-50 p-2" data-testid="mention-preview">
             {RenderMentionedText(body, users)}
           </div>
         </div>
 
         {/* Mention Suggestions */}
         {currentMentionQuery && mentionSuggestions.length > 0 && (
-          <div className="absolute z-10 mt-1 w-full rounded-md border bg-white shadow-lg">
+          <div
+            className="absolute z-10 mt-1 w-full rounded-md border bg-white shadow-lg"
+            data-testid="mention-suggestions"
+          >
             {mentionSuggestions.map((user) => (
               <div
                 key={user.username}
                 onClick={() => handleMentionSelect(user)}
                 className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                data-testid={`mention-suggestion-${user.username}`}
               >
                 <div className="font-medium">{user.username}</div>
                 <div className="text-xs text-gray-500">
@@ -369,6 +353,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
                 ? 'cursor-not-allowed bg-blue-400'
                 : 'bg-blue-600 hover:bg-blue-700'
             }`}
+            data-testid="create-note-button"
           >
             <Plus className="mr-1 h-4 w-4" />
             Create Note
@@ -379,6 +364,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ selectedNote, onClose, isOpen }
             className={`flex items-center rounded-md px-4 py-2 text-white ${
               isSaving ? 'cursor-not-allowed bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
             }`}
+            data-testid="close-button"
           >
             Close
           </button>
