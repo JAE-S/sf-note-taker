@@ -15,7 +15,6 @@ import React from 'react';
 // Testing Imports
 import { render, screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-// Lucide-React Imports
 // Local - Component Import
 import TextareaAutoSave from '../textarea-auto-save';
 
