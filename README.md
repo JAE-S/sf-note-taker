@@ -144,6 +144,11 @@ yarn test:coverage
 
 ### Dashboard Overview
 When you first open the application, you'll see the Notes Dashboard:
+
+<div align="center">
+  <img src="public/readme-assets/empty-state_screenshot.png" alt="Empty State Dashboard" width="600">
+</div>
+
 - A clean, grid-based layout of your existing notes
 - A prominent "Create a Note" button at the top of the page
 - If no notes exist, an encouraging empty state is displayed
@@ -151,6 +156,16 @@ When you first open the application, you'll see the Notes Dashboard:
 ### Creating a Note
 1. Click the "Create a Note" button
 2. A modal will open with the note editor
+
+<div align="center">
+  <grid>
+    <img src="public/readme-assets/ceate-new-note-empty_screenshot.png" alt="Create New Note Empty" width="300">
+    <img src="public/readme-assets/create-new-note-filled_screenshot.png" alt="Create New Note Filled" width="300">
+    <img src="public/readme-assets/create-new-note-filled-2_screenshot.png" alt="Create New Note Filled 2" width="300">
+    <img src="public/readme-assets/create-new-note-filled-complete_screenshot.png" alt="Create New Note Complete" width="300">
+  </grid>
+</div>
+
 3. Enter a title (required)
 4. Write your note content
 5. Use `@` to mention users
@@ -161,9 +176,25 @@ When you first open the application, you'll see the Notes Dashboard:
 7. The note will auto-save while you type (in edit mode)
 8. Click "Create Note" to save and close the modal
 
+### Viewing All Notes
+
+<div align="center">
+  <img src="public/readme-assets/view-all-notes_screenshot.png" alt="View All Notes" width="600">
+</div>
+
+- See all your created notes in a clean, organized grid
+- Hover over a note card to reveal edit and interaction options
+- The center note card shows an active hover state with edit and additional interaction controls
+- Easy access to edit or interact with existing notes
+
 ### Editing a Note
 1. Click the pencil icon on any note card
 2. The note editor modal opens with the existing note content
+
+<div align="center">
+  <img src="public/readme-assets/edit-note_screenshot.png" alt="Edit Note" width="600">
+</div>
+
 3. Make your changes
 4. The note will auto-save while you type
 5. Click "Close" to exit the editor
@@ -186,8 +217,6 @@ When you first open the application, you'll see the Notes Dashboard:
 - Use the "Reset Session" button in the header
 - This clears all current notes and creates a new session
 - Useful for starting fresh or privacy purposes
-
-
 
 ## Code Quality
 

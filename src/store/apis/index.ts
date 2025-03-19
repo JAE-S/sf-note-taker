@@ -34,6 +34,7 @@ const customFetchBaseQuery = fetchBaseQuery({
 });
 
 // Wrap the base query to add global error handling
+// TODO: fix type any
 const baseQueryWithErrorHandling = async (args: any, api: any, extraOptions: any) => {
   try {
     const result = await customFetchBaseQuery(args, api, extraOptions);

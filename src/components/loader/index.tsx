@@ -12,7 +12,7 @@ interface LoaderProps {
 const Loader: React.FC<LoaderProps> = ({ message = 'Loading...', className = '', size = 24 }) => {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center space-y-3 ${className}`}
+      className={`flex flex-col items-center justify-center space-y-3 ${className}`}
       data-testid="loader-container"
     >
       <Loader2 className="animate-spin text-blue-500" size={size} data-testid="loader-icon" />
