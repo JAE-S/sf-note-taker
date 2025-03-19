@@ -1,4 +1,4 @@
-// Redux Imports
+// Redux Core Imports
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 // Relative Imports
 import type { RootState, AppDispatch } from './index.ts';
