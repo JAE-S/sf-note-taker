@@ -146,7 +146,7 @@ yarn test:coverage
 When you first open the application, you'll see the Notes Dashboard:
 
 <div align="center">
-  <img src="public/readme-assets/empty-state_screenshot.png" alt="Empty State Dashboard" width="600">
+  <img src="Public/readme-assets/empty-state_screenshot.png" alt="Empty State Dashboard" width="600">
 </div>
 
 - A clean, grid-based layout of your existing notes
@@ -159,10 +159,10 @@ When you first open the application, you'll see the Notes Dashboard:
 
 <div align="center">
   <grid>
-    <img src="public/readme-assets/ceate-new-note-empty_screenshot.png" alt="Create New Note Empty" width="300">
-    <img src="public/readme-assets/create-new-note-filled_screenshot.png" alt="Create New Note Filled" width="300">
-    <img src="public/readme-assets/create-new-note-filled-2_screenshot.png" alt="Create New Note Filled 2" width="300">
-    <img src="public/readme-assets/create-new-note-filled-complete_screenshot.png" alt="Create New Note Complete" width="300">
+    <img src="Public/readme-assets/ceate-new-note-empty_screenshot.png" alt="Create New Note Empty" width="300">
+    <img src="Public/readme-assets/create-new-note-filled_screenshot.png" alt="Create New Note Filled" width="300">
+    <img src="Public/readme-assets/create-new-note-filled-2_screenshot.png" alt="Create New Note Filled 2" width="300">
+    <img src="Public/readme-assets/create-new-note-filled-complete_screenshot.png" alt="Create New Note Complete" width="300">
   </grid>
 </div>
 
@@ -179,7 +179,7 @@ When you first open the application, you'll see the Notes Dashboard:
 ### Viewing All Notes
 
 <div align="center">
-  <img src="public/readme-assets/view-all-notes_screenshot.png" alt="View All Notes" width="600">
+  <img src="Public/readme-assets/view-all-notes_screenshot.png" alt="View All Notes" width="600">
 </div>
 
 - See all your created notes in a clean, organized grid
@@ -192,7 +192,7 @@ When you first open the application, you'll see the Notes Dashboard:
 2. The note editor modal opens with the existing note content
 
 <div align="center">
-  <img src="public/readme-assets/edit-note_screenshot.png" alt="Edit Note" width="600">
+  <img src="Public/readme-assets/edit-note_screenshot.png" alt="Edit Note" width="600">
 </div>
 
 3. Make your changes
