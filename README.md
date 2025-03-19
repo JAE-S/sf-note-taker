@@ -216,7 +216,7 @@ When you first open the application, you'll see the Notes Dashboard:
 ### Session Management
 - Use the "Reset Session" button in the header
 - This clears all current notes and creates a new session
-- Useful for starting fresh or privacy purposes
+- Useful for starting fresh
 
 ## Code Quality
 
