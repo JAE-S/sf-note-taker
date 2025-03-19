@@ -15,8 +15,10 @@ A React-based note-taking application with user mention functionality.
 - [Usage](#usage)
 - [Code Quality](#code-quality)
 - [Testing](#testing)
-- [Future Development](#future-development)
 - [Considerations](#considerations)
+- [Challenges Encountered](#challenges-encountered)
+- [Future Development](#future-development)
+
 
 ## Features
 
@@ -140,7 +142,52 @@ yarn test:coverage
 
 ## Usage
 
-// TODO: note usage
+### Dashboard Overview
+When you first open the application, you'll see the Notes Dashboard:
+- A clean, grid-based layout of your existing notes
+- A prominent "Create a Note" button at the top of the page
+- If no notes exist, an encouraging empty state is displayed
+
+### Creating a Note
+1. Click the "Create a Note" button
+2. A modal will open with the note editor
+3. Enter a title (required)
+4. Write your note content
+5. Use `@` to mention users
+   - Start typing `@` followed by a username, first name, or last name
+   - A list of suggestions will appear
+   - Click a suggestion to add the mention
+6. See a live preview of your note with formatted mentions
+7. The note will auto-save while you type (in edit mode)
+8. Click "Create Note" to save and close the modal
+
+### Editing a Note
+1. Click the pencil icon on any note card
+2. The note editor modal opens with the existing note content
+3. Make your changes
+4. The note will auto-save while you type
+5. Click "Close" to exit the editor
+
+### Error Handling
+- Auto-save failures show error messages
+- Notes require both title and content
+- Informative loading and error states
+
+### Mentions
+- Type `@` in the note body to trigger user suggestions
+- Suggestions include:
+  - Usernames
+  - First names
+  - Last names
+- Click a suggestion to insert the mention
+- See a live preview of how mentions will appear styled
+
+### Session Management
+- Use the "Reset Session" button in the header
+- This clears all current notes and creates a new session
+- Useful for starting fresh or privacy purposes
+
+
 
 ## Code Quality
 
@@ -151,18 +198,29 @@ yarn test:coverage
 
 ## Testing
 
-The application includes unit tests. Future Development should include end to end tests with tools like playwright.
+### Approach
+- Implemented unit tests for components
+- Focused on user interaction and state management
+- Utilized Vitest and Testing Library
+- Covered multiple scenarios including some edge cases
+---
 
 - **Component Testing**: Each component has corresponding unit tests in a `__tests__` directory.
 - **Mock Data**: Tests use centralized mock data and utility mocks for consistent testing.
-- **Testing Tools**:
-  - **Vitest**: Modern testing framework for Vite projects
-  - **Testing Library**: DOM testing utilities to test components like users would interact with them
-  - **Test IDs**: Components use data-testid attributes for reliable element selection in tests
-  - **Coverage Reports**: Test coverage reports are generated in `src/test/results/coverage`
-  - **Test Reports**: JSON and HTML test reports are available in `src/test/results`
+- **Vitest**: Modern testing framework for Vite projects
+- **Testing Library**: DOM testing utilities to test components like users would interact with them
+- **Test IDs**: Components use data-testid attributes for reliable element selection in tests
+- **Coverage Reports**: Test coverage reports are generated in `src/test/results/coverage`
+- **Test Reports**: JSON and HTML test reports are available in `src/test/results`
 
-To run tests:
+### Key Testing Areas
+- Component rendering
+- User input validation
+- Mention suggestion functionality
+- Save state management
+- Error handling
+
+### Run Tests
 
 ```bash
 # Run all tests
@@ -174,11 +232,68 @@ yarn test:watch
 # Generate test coverage report
 yarn test:coverage
 ```
-
-## Future Development
-
-// TODO: Note future development ideas
+### Future Testing Improvements
+- Implement end-to-end (E2E) tests
+- Increase test coverage for complex interactions
+- Add integration tests for Redux store and API interactions
+- Accessibility testing
 
 ## Considerations
 
-// TODO: Note application considerations
+### State Management
+- Utilized Redux Toolkit Query (RTK Query) for consistent data updates
+- While this is a simple application RTK Query was chosen for its built-in synchronization capabilities, specifically for the handling of mentions and data fetching/refetching
+- Simplifies complex data refresh and invalidation scenarios
+
+## Challenges Encountered
+
+### Data Transformation
+- Initial data structure that was planned for differed from expected API format
+- Developed comprehensive note transformers to handle:
+  - Parsing incoming API responses
+  - Converting internal note format to API-compatible format
+- Created flexible transformation functions to manage different data shapes
+
+### Mention Handling
+- Implemented dynamic mention suggestion system
+- Developed cursor-aware mention insertion
+- Created preview functionality for mentioned users
+
+### Mention Interaction Bug
+
+#### Current Limitation
+A critical bug has been identified in the mention suggestion system:
+
+1. When a user types a full mention (e.g., "@Emma Johnson")
+2. And then begins to edit by backspacing part of the name (deleting "n" from "Johnson")
+3. The mention suggestion functionality fails to:
+   - Repopulate suggestions
+   - Maintain context of the partial mention
+   - Provide a smooth editing experience
+
+#### Root Cause
+The current implementation only processes mentions when they are fully formed. It lacks robust handling for:
+- Partial mention interactions
+- Dynamic suggestion updates during text editing
+- Maintaining mention context through incremental edits
+
+#### Potential Solutions
+- Implement a more flexible regex for partial mention detection
+- Create a more dynamic suggestion lookup mechanism
+- Add fallback suggestion handling for partial mentions
+- Improve cursor positioning and mention tracking logic
+
+This bug highlights the complexity of creating an intuitive mention system that feels natural during user interactions.
+
+### Performance Considerations
+- Implemented debounce for auto-save functionality
+- A library like Lodash might be better suited for advanced debounce functionality in the future
+- Managed potential performance impacts of frequent state updates
+
+## Future Development
+- Improve error handling
+- Expand test coverage & testing methods
+- Fix the Mention Interaction Bug as noted above
+- Enable delete note
+- Enable view note to show the styled note (note in edit mode - with an option to switch to edit mode)
+- Improved accessibility considerations

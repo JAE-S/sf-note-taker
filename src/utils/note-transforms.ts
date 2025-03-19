@@ -43,14 +43,6 @@ export const TransformNoteForRequest = (note: NoteProps): ApiNoteProps => {
 
   // Check if we have a new format note
   if (note.body && typeof note.body === 'string') {
-    // Already in new format, use directly
-    //     bodyObject = {
-    //       title: note.body.title || '',
-    //       content: note.body.content || '',
-    //       createdAt: note.body.createdAt || new Date().toISOString(),
-    //       updatedAt: new Date().toISOString(),
-    //     };
-    //   } else {
     // Convert from legacy format
     bodyObject = {
       title: note.title || '',
